@@ -1,0 +1,105 @@
+class MaxHeap
+{
+  int A[];
+  int maxheap,heapsize;
+  MaxHeap(int ms)
+  {
+      A=new int[ms];
+      maxsize=ms;
+      heapsize=0;
+  }
+  int parent(int i)
+  {
+     return (i-1)/2;
+  }
+  int lchild(int i)
+  {
+      return 2*i+1;
+  }
+  int rchild(int i)
+  {
+      return 2*i+2;
+  }
+  int getMax()
+  {
+      return A[0];
+  }
+  int curSize()
+  {
+    return heapSize;
+  }
+  void Heapify(int i)
+  {
+     int l=lchild(i);
+     int r=rchild(i);
+     int largest=i;
+     if(l<heapsize && A[l]>A[largest])
+     {
+        largest=l;
+     }
+     if(r<heapsize && A[r]>A[largest])
+     {
+       largest=r;
+     }
+     if(largest!=i)
+     {
+       int temp=A[i];
+       A[i]=A[largest];
+       A[largest]=temp;
+       Heapify(largest);
+     }
+   }
+   void insertKey(int x)
+   {
+   
+     if(heapsize==maxsize)
+     {
+       System.out.println("overflow");
+       return;
+     }
+     int i=heapsize;
+     A[i]=x;
+     heapsize++;
+     while(i!=0&&A[parent(i)]<a[i])
+     {
+        int temp=A[i];
+        A[i]=A[parent(i)];
+        A[parent(i)]=temp;
+        i=parent(i);
+     }
+   }
+   void removeMax()
+   {
+      if(heapsize==0)
+      {
+        System.out.println("underflow");
+      }
+      else if(heapsize==1)
+      {
+        heapsize--;
+      }
+      else
+      {
+        A[0]=A[heapsize-1];
+        heapsize--;
+        Heapify(0);
+      }
+   }
+   public static void main(String args[])
+   {
+     MaxHeap h = new MaxHeap(15);
+     int elements[] = {3, 10, 12, 8, 2, 14};
+     for (int e : elements)
+     h.insertKey(e);
+     System.out.println("The current size of the heap is " + h.curSize());
+     System.out.println("The current maximum element is " + h.getMax());
+     h.removeMax();
+     System.out.println("The current size of the heap is " + h.curSize());
+    // Inserting 2 new keys into the heap.
+     h.insertKey(15);
+     h.insertKey(5);
+     System.out.println("The current size of the heap is " + h.curSize());
+     System.out.println("The current maximum element is " + h.getMax());
+  }
+}
+      
